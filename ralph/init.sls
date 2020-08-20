@@ -1,8 +1,13 @@
 {%- from "ralph/map.jinja" import config with context %}
 
+python-pip:
+  pkg.installed
+
 install_compose:
-  pip.install:
+  pip.installed:
   - name: docker-compose
+  - require:
+    - pkg: python-pip
 
 {{ config.location }}:
   file.directory:
