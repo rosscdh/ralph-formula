@@ -1,6 +1,20 @@
 ralph:
-  your: mother
-  is:
-  - fat
-  - old 
-  
+  location: /opt/ralph
+  image: allegro/ralph:latest
+  port: 8006
+  restart: UnlessStopped
+  env:
+    DATABASE_NAME: ralph_ng
+    DATABASE_USER: ralph_ng
+    DATABASE_PASSWORD: ralph_ng
+    DATABASE_HOST: db
+
+    REDIS_HOST: redis
+    REDIS_PASSWORD: ''
+    REDIS_PORT: 6379
+    REDIS_DB: 0
+
+    MYSQL_DATABASE: ralph_ng
+    MYSQL_ROOT_PASSWORD: ralph_ng
+    MYSQL_USER: ralph_ng
+    MYSQL_PASSWORD: ralph_ng
