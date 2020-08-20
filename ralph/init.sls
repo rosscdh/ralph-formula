@@ -1,5 +1,9 @@
 {%- from "ralph/map.jinja" import config with context %}
 
+install_compose:
+  pip.install:
+  - name: docker-compose
+
 {{ config.location }}:
   file.directory:
     - mode: 755
