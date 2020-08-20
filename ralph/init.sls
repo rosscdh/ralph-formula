@@ -17,3 +17,12 @@ ralph_compose_file:
   - source: salt://ralph/files/docker-compose.yml.jinja2
   - template: jinja
 
+{{ config.location }}/docker-compose.yml:
+  dockercompose.up
+
+
+{{ config.location }}/docker-compose.yml:
+  dockercompose.restart:
+  - watch:
+    - file: {{ config.location }}/.env
+    - file: {{ config.location }}/docker-compose.yml
