@@ -1,0 +1,59 @@
+{%- from "ralph/map.jinja" import config with context %}
+version: '3'
+services:
+  web:
+    image: {{ config.image }}
+    restart: always
+    volumes:
+      - ralph_media:/var/local/ralph/media
+      - ralph_static:/usr/share/ralph/static
+    networks:
+      - backend
+    env_file:
+     - {{ config.location }}/.env
+
+  nginx:
+    image: allegro/ralph-static-nginx:latest
+    restart: always
+    ports:
+      - "{{ config.port }}:80"
+    networks:
+      - frontend
+      - backend
+    volumes:
+      - ralph_media:/opt/media
+
+  db:
+    image: mysql:5.7
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    env_file:
+     - {{ config.location }}/.env
+    volumes:
+      - ralph_dbdata:/var/lib/mysql
+    networks:
+      - backend
+
+  redis:
+    image: redis:3.0
+    restart: always
+    networks:
+      - backend
+
+  inkpy:
+    image: allegro/inkpy:latest
+    restart: always
+    env_file:
+     - {{ config.location }}/.env
+    networks:
+      - backend
+
+volumes:
+  ralph_dbdata:
+  ralph_media:
+  ralph_static:
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
