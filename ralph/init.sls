@@ -3,7 +3,7 @@
 python-pip:
   pkg.installed
 
-install_compose:
+ralph_install_compose:
   pip.installed:
   - name: docker-compose
   - require:
