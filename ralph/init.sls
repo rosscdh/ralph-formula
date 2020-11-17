@@ -1,7 +1,9 @@
 {%- from "ralph/map.jinja" import config with context %}
 
-python-pip:
+ralph_python-pip:
   pkg.installed
+  pkg.installed:
+  - name: python-pip
 
 ralph_install_compose:
   pip.installed:
